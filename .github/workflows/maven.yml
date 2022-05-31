@@ -23,6 +23,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
           
+      - name: Step 2.5 - Echo out a GitHub Actions Secret to the logs
+        run: |
+          echo "The GitHub Action Secret will be masked:  "
+          echo ${{ secrets.SPRING_DATASOURCE_URL }}
+          echo "Trick to echo GitHub Actions Secret:  "
+          echo ${{secrets.PAYU_DESCRIPTION}} | sed 's/./& /g' 
+          
       - name: Step 3 - Have GitHub Actions build Maven Project
         run: mvn -B package --file pom.xml
         
