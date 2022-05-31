@@ -1,8 +1,8 @@
 spring:
-  datasource:
-    url: 
-    username: 
-    password: 
+  datasource: 
+    url: ${{ secrets.SPRING_DATASOURCE_URL }}
+    username: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+    password: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,22 +13,22 @@ spring:
         show_sql: true
 
 payu:
-  description: 
-  merchant-pos-id: 
-  second-key: 
-  client-id: 
-  client-secret: 
+  description: ${{ secrets.PAYU_DESCRIPTION }}
+  merchant-pos-id: ${{ secrets.PAYU_MERCHANTPOSID }}
+  second-key: ${{ secrets.PAYU_SECONDKEY }}
+  client-id: ${{ secrets.PAYU_CLIENTID }}
+  client-secret: ${{ secrets.PAYU_CLIENTSECRET }}
   url: https://secure.snd.payu.com/api/v2_1/orders
   authorization-url: https://secure.snd.payu.com/pl/standard/user/oauth/authorize
-  continue-url: https://spring-library-1.herokuapp.com/checkout/callback
-  notify-url: https://spring-library-1.herokuapp.com/notify
+  continue-url: ${{ secrets.PAYU_CONTINUEURL }}
+  notify-url: ${{ secrets.PAYU_NOTIFYURL }}
 
 mail:
-  host: 
-  port: 
-  username: 
-  password: 
-  transport-protocol: smtp
+  host: ${{ secrets.MAIL_HOST }}
+  port: ${{ secrets.MAIL_PORT }}
+  username: ${{ secrets.MAIL_USERNAME }}
+  password: ${{ secrets.MAIL_PASSWORD }}
+  transport-protocol: ${{ secrets.TRANSPORTPROTOCOL }}
   smtp-auth: true
   smtp-starttls-enable: true
   debug: true
