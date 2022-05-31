@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: 
+    username: 
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        ddl-auto: update
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        show_sql: true
+
+payu:
+  description: 
+  merchant-pos-id: 
+  second-key: 
+  client-id: 
+  client-secret: 
+  url: https://secure.snd.payu.com/api/v2_1/orders
+  authorization-url: https://secure.snd.payu.com/pl/standard/user/oauth/authorize
+  continue-url: https://spring-library-1.herokuapp.com/checkout/callback
+  notify-url: https://spring-library-1.herokuapp.com/notify
+
+mail:
+  host: 
+  port: 
+  username: 
+  password: 
+  transport-protocol: smtp
+  smtp-auth: true
+  smtp-starttls-enable: true
+  debug: true
+
+

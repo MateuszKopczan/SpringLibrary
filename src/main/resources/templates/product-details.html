@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${product.title}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8c78699ee4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.png}" width="250px" alt="Image not found" />
+            </a>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li>
+                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{/products}">Products</a>
+                    <a th:href="@{/}">Contact</a>
+                    <a th:href="@{/account}">Account</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/orders}"> Admin Page </a>
+                </li>
+            </ul>
+        </nav>
+        <a th:href="@{/cart}">
+            <img th:src="@{/images/cart.png}" width="30px" height="height" alt="icon not found" />
+        </a>
+        <img th:src="@{/images/menu.png}" class="menu-icon" alt="icon not found"
+             onclick="menuToggle()"/>
+    </div>
+</div>
+
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+            <img th:src="${product.imageUrl}" width="100%" id="product-img">
+
+
+        </div>
+        <div class="col-2">
+            <p th:text="${#strings.replace(product.categories,'[','').replace(']', '')}" />
+            <h1 th:text="${product.title}"/>
+            <p th:text="${#strings.replace(product.authors,'[','').replace(']', '')}" />
+            <h4 th:text="${product.price} + ' PLN'" />
+            <form th:action="@{/cart/add}" th:object="${product}" method="post">
+                <input type="hidden" th:field="${product.id}"/>
+                <button th:if="${product.numberForSale > 0}" type="submit" class="btn">Add To Cart </button>
+                <button th:if="${product.numberForSale <= 0}" type="submit" class="btn sold-out" disabled>Sold out </button>
+            </form>
+            <br>
+            <h3>Product Details:</h3> <br>
+            <h5>ISBN</h5>
+            <p th:text="${product.isbn}" />
+            <h5>Page Count</h5>
+            <p th:text="${product.pageCount == 0} ? 'no data' : ${product.pageCount}" />
+            <h5>Publication Year</h5>
+            <p th:text="${product.publicationYear}" />
+            <h5>Short Description</h5>
+            <p th:text="${product.shortDescription}"></p>
+
+        </div>
+    </div>
+</div>
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2> Related Products</h2>
+    </div>
+</div>
+
+
+<div class="small-container">
+
+
+    <div class="row">
+        <div th:each="book : ${relatedBooks}" class="col-4">
+            <a th:href="@{'/products/' + ${book.id}}">
+                <div class="productImage">
+                    <img th:src="${book.imageUrl}" alt="Image not found" style="height: 250px;" >
+                </div>
+                <div class="bookTitle">
+                    <h4 th:text="${book.title}"/>
+                </div>
+                <div class="rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                <p th:text="${book.price} + ' PLN'"/>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and IOS mobile phone.</p>
+                <div class="app-logo">
+                    <a href="https://play.google.com/store" target="_blank">
+                        <img th:src="@{/images/play-store.png}" alt="image not found" >
+                    </a>
+                    <a href="https://www.apple.com/pl/app-store/" target="_blank">
+                        <img th:src="@{/images/app-store.png}" alt="image not found" >
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" alt="image not found" >
+                </a>
+
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com" target="_blank">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2022</p>
+    </div>
+</div>
+
+<script>
+    const MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    function menuToggle(){
+        if(MenuItems.style.maxHeight == "0px"){
+            MenuItems.style.maxHeight = "200px";
+        } else{
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
+
+</body>
+</html>

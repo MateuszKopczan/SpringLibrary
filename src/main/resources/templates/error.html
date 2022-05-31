@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8c78699ee4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" width="250px" alt="Image not found" />
+                </a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li>
+                        <a th:href="@{/}">Home</a>
+                        <a th:href="@{/products}">Products</a>
+                        <a th:href="@{/}">Contact</a>
+                        <a th:href="@{/account}">Account</a>
+                        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/orders}"> Admin Page </a>
+                    </li>
+                </ul>
+            </nav>
+            <a th:href="@{/cart}">
+                <img th:src="@{/images/cart.png}" width="30px" height="height" alt="icon not found" />
+            </a>
+            <img th:src="@{/images/menu.png}" class="menu-icon" alt="icon not found"
+                 onclick="menuToggle()"/>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h1>SORRY, THE PAGE YOU ARE LOOKING FOR DOES NOT EXISTS</h1>
+
+                <a th:href="@{/}" class="btn"> Back To Main Page </a>
+            </div>
+            <div class="col-2">
+                <img th:src="@{/images/background3.png}" alt="Background not found" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and IOS mobile phone.</p>
+                <div class="app-logo">
+                    <a href="https://play.google.com/store" target="_blank">
+                        <img th:src="@{/images/play-store.png}" alt="image not found" >
+                    </a>
+                    <a href="https://www.apple.com/pl/app-store/" target="_blank">
+                        <img th:src="@{/images/app-store.png}" alt="image not found" >
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" alt="image not found" >
+                </a>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com" target="_blank">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2022</p>
+    </div>
+</div>
+<script>
+    const MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    function menuToggle(){
+        if(MenuItems.style.maxHeight == "0px"){
+            MenuItems.style.maxHeight = "200px";
+        } else{
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
+
+</body>
+</html>

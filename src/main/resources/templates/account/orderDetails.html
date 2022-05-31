@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Spring Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8c78699ee4.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.png}" width="250px" alt="Image not found" />
+            </a>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li>
+                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{/products}">Products</a>
+                    <a th:href="@{/}">Contact</a>
+                    <a th:href="@{/account}">Account</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/orders}"> Admin Page </a>
+                </li>
+            </ul>
+        </nav>
+        <a th:href="@{/cart}">
+            <img th:src="@{/images/cart.png}" width="30px" height="height" alt="icon not found" />
+        </a>
+        <img th:src="@{/images/menu.png}" class="menu-icon" alt="icon not found"
+             onclick="menuToggle()"/>
+    </div>
+</div>
+
+<div class="small-container">
+    <div class="row">
+        <div class="navbar">
+            <ul id="ProfileItems">
+                <li>
+                    <a th:href="@{/account/orders}">Order History</a>
+                    <a th:href="@{/account/profile}">Your Account Details</a>
+                    <a th:href="@{/account/password}">Change Password</a>
+                    <a th:href="@{/logout}" style="color: red">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row" style="display: block">
+        <h3 th:text="'Order Details Number: ' + ${order.payUOrderId} " />
+        <h3 th:text="'Order status: ' + ${order.status}" />
+        <h3 th:text="'Payment method: ' + ${order.payMethod}" class="order-details-interval"/>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+
+            <tr th:each="product : ${map.entrySet()}" >
+                <td>
+                    <div class="cart-info">
+                        <img th:src="${product.key.imageUrl}" alt="image not found" />
+                        <div>
+                            <p th:text="${product.key.title}"/>
+                            <small th:text="${#strings.replace(product.key.authors,'[','').replace(']', '')}" />
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p th:text="${product.value}" />
+                </td>
+                <td th:text="${product.value} * ${product.key.price} + ' PLN'" class="subtotal" th:id="subtotal + ${product.key.id}"/>
+            </tr>
+        </table>
+        <div class="total-price" th:if="${!products.empty}">
+            <table>
+                <tr>
+                    <td>Subtotal</td>
+                    <td th:text="${#aggregates.sum(products.![price])} + ' PLN'" id="total"/>
+                </tr>
+                <tr>
+                    <td>Shipment</td>
+                    <td>8 PLN</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td th:text="${#aggregates.sum(products.![price]) + 8} + ' PLN'"/>
+                </tr>
+            </table>
+        </div>
+        <div class="col-4">
+            <h3>Delivery</h3>
+            <p th:text="${order.orderDetail.firstName} + ' ' + ${order.orderDetail.lastName}" />
+            <p th:text="${order.orderDetail.phone}" />
+            <p th:if="${order.orderDetail.address?.flatNumber == ''}" th:text="${order.orderDetail.address?.street} + ' ' + ${order.orderDetail.address?.houseNumber}" />
+            <p th:if="${order.orderDetail.address?.flatNumber != ''}" th:text="${order.orderDetail.address?.street} + ' ' + ${order.orderDetail.address?.houseNumber} + '/' + ${order.address?.flatNumber}" />
+            <p th:text="${order.orderDetail.address?.postalCode} + ' ' + ${order.orderDetail.address?.city}" class="order-details-interval"/>
+
+            <form th:if="${order.status == 'WAITING_FOR_SHIPMENT'}" th:action="@{'/account/orders/' + ${order.id} + '/cancel'}" th:method="post">
+                <button type="submit" class="btn">Cancel</button>
+            </form>
+
+            <form th:if="${order.status == 'SHIPMENT'}" th:action="@{'/account/orders/' + ${order.id} + '/received'}" th:method="post">
+                <button type="submit" class="btn">Received</button>
+            </form>
+        </div>
+
+        <div class="col-3" th:if="${order.status == 'WAITING_FOR_SHIPMENT'}" sec:authorize="hasRole('ADMIN')">
+            <h2>Change Order Status to:</h2>
+            <form th:action="@{'/admin/orders/' + ${order.id}}" th:method="post" >
+                <input type="hidden" th:value="${order.id}" name="id">
+                <input type="hidden" value="SHIPMENT" name="status">
+                <button type="submit" class="btn">SHIPMENT</button>
+            </form>
+            <form th:action="@{'/admin/orders/' + ${order.id}}" th:method="post" >
+                <input type="hidden" th:value="${order.id}" name="id">
+                <input type="hidden" value="CANCELED" name="status" >
+                <button type="submit" class="btn">CANCELED</button>
+            </form>
+
+        </div>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/orders}" class="btn">Back to Order List</a>
+        <a sec:authorize="hasRole('USER')" th:href="@{/account/orders}" class="btn">Back to Order List</a>
+    </div>
+
+</div>
+
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and IOS mobile phone.</p>
+                <div class="app-logo">
+                    <a href="https://play.google.com/store" target="_blank">
+                        <img th:src="@{/images/play-store.png}" alt="image not found" >
+                    </a>
+                    <a href="https://www.apple.com/pl/app-store/" target="_blank">
+                        <img th:src="@{/images/app-store.png}" alt="image not found" >
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" alt="image not found" >
+                </a>
+
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com" target="_blank">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2022</p>
+    </div>
+</div>
+
+<script>
+    const MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    function menuToggle(){
+        if(MenuItems.style.maxHeight == "0px"){
+            MenuItems.style.maxHeight = "200px";
+        } else{
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
+</body>
+</html>

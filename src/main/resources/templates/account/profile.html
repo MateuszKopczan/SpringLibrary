@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Spring Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8c78699ee4.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.png}" width="250px" alt="Image not found" />
+            </a>
+        </div>
+        <nav>
+            <ul id="MenuItems">
+                <li>
+                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{/products}">Products</a>
+                    <a th:href="@{/}">Contact</a>
+                    <a th:href="@{/account}">Account</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/orders}"> Admin Page </a>
+                </li>
+            </ul>
+        </nav>
+        <a th:href="@{/cart}">
+            <img th:src="@{/images/cart.png}" width="30px" height="height" alt="icon not found" />
+        </a>
+        <img th:src="@{/images/menu.png}" class="menu-icon" alt="icon not found"
+             onclick="menuToggle()"/>
+    </div>
+</div>
+
+<div class="small-container">
+    <div class="row">
+        <div class="navbar">
+            <ul id="ProfileItems">
+                <li>
+                    <a th:href="@{/account/orders}">Order History</a>
+                    <a th:href="@{/account/profile}">Your Account Details</a>
+                    <a th:href="@{/account/password}">Change Password</a>
+                    <a th:if="${!#authentication.getPrincipal().isVerify()}" th:href="@{/account/verify}"> Verify </a>
+                    <a th:href="@{/logout}" style="color: red">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <h2>Your Account Details</h2>
+        <form th:action="@{/account/profile}" th:object="${user}" method="post" style="margin-top: 20px;">
+                <p style="text-align: center">Personal Data</p><hr>
+                <table>
+                    <tr class="data-row">
+                        <td class="data-row">First name *</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.firstName}" th:value="${user.firstName}" required style="width: 200px"/>
+                        </td>
+                    </tr>
+                    <tr class="data-row">
+                        <td class="data-row">Last name *</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.lastName}" th:value="${user.lastName}" required style="width: 200px"/>
+                        </td>
+                    </tr>
+                    <tr class="data-row">
+                        <td class="data-row">Username *</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.userName}" th:value="${user.userName}" required style="width: 200px"/>
+                        </td>
+                    </tr>
+                    <tr class="data-row">
+                        <td class="data-row">Phone number *</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.phoneNumber}" th:value="${user.phoneNumber}" required style="width: 200px"/>
+                        </td>
+                    </tr>
+                    <tr class="data-row">
+                        <td class="data-row">Email *</td>
+                        <td class="data-row">
+                            <input type="email" th:field="${user.email}" th:value="${user.email}" required disabled style="width: 200px"/>
+                        </td>
+                    </tr>
+
+                </table>
+                <p style="text-align: center">Address</p><hr>
+                <table>
+                    <tr class="data-row">
+                        <td class="data-row">Street *</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.address.street}" th:value="${user.address?.street}" required style="width: 200px"/>
+                        </td>
+                    </tr>
+                    <tr class="data-row">
+                        <td class="data-row">House number *</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.address.houseNumber}" th:value="${user.address?.houseNumber}" required style="width: 200px"/>
+                        </td>
+                    </tr>
+                    <tr class="data-row">
+                        <td class="data-row">Flat number</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.address.flatNumber}" th:value="${user.address?.flatNumber}" style="width: 200px"/>
+                        </td>
+                    </tr>
+                    <tr class="data-row">
+                        <td class="data-row">Postal code *</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.address.postalCode}" th:value="${user.address?.postalCode}" required style="width: 200px"/>
+                        </td>
+                    </tr>
+                    <tr class="data-row">
+                        <td class="data-row">City *</td>
+                        <td class="data-row">
+                            <input type="text" th:field="${user.address.city}" th:value="${user.address?.city}" required style="width: 200px"/>
+                        </td>
+                    </tr>
+                </table>
+            <div style="display: flex">
+                <button type="submit" class="btn"> Save </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and IOS mobile phone.</p>
+                <div class="app-logo">
+                    <a href="https://play.google.com/store" target="_blank">
+                        <img th:src="@{/images/play-store.png}" alt="image not found" >
+                    </a>
+                    <a href="https://www.apple.com/pl/app-store/" target="_blank">
+                        <img th:src="@{/images/app-store.png}" alt="image not found" >
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" alt="image not found" >
+                </a>
+
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li><a href="https://www.facebook.com" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com" target="_blank">Youtube</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2022</p>
+    </div>
+</div>
+
+<script>
+    const MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    function menuToggle(){
+        if(MenuItems.style.maxHeight == "0px"){
+            MenuItems.style.maxHeight = "200px";
+        } else{
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
+</body>
+</html>

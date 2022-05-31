@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8c78699ee4.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a th:href="@{/}">
+                    <img th:src="@{/images/logo.png}" width="250px" alt="Image not found" />
+                </a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li>
+                        <a th:href="@{/}">Home</a>
+                        <a th:href="@{/products}">Products</a>
+                        <a th:href="@{/}">About</a>
+                        <a th:href="@{/}">Contact</a>
+                        <a th:href="@{/account}">Account</a>
+                    </li>
+                </ul>
+            </nav>
+            <a th:href="@{/cart}">
+                <img th:src="@{/images/cart.png}" width="30px" height="height" alt="icon not found" />
+            </a>
+            <img th:src="@{/images/menu.png}" class="menu-icon" alt="icon not found"
+                 onclick="menuToggle()"/>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h1>SORRY, THE PAGE YOU ARE LOOKING FOR DOES NOT EXISTS</h1>
+
+                <a th:href="@{/}" class="btn"> Back To Main Page </a>
+            </div>
+            <div class="col-2">
+                <img th:src="@{/images/background3.png}" alt="Background not found" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and IOS mobile phone.</p>
+                <div class="app-logo">
+                    <img th:src="@{/images/play-store.png}" alt="image not found" >
+                    <img th:src="@{/images/app-store.png}" alt="image not found" >
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img th:src="@{/images/}" alt="image not found" >
+                <p>Our Purpose Is To Sustainably Make The Pleasure and Benefits Of Sports
+                    Accessible to the Many.</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow us</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>Youtube</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">Copyright 2022</p>
+        <p th:text="${message}" />
+    </div>
+</div>
+<!--<form method="POST" th:action="@{/xyz}">-->
+<!--    <input type="hidden" name="customerIp" value="127.0.0.1">-->
+<!--    <input type="hidden" name="merchantPosId" value="145227">-->
+<!--    <input type="hidden" name="description" value="Opis zamówienia">-->
+<!--    <input type="hidden" name="totalAmount" value="1000">-->
+<!--    <input type="hidden" name="currencyCode" value="PLN">-->
+<!--    <input type="hidden" name="products[0].name" value="Produkt 1">-->
+<!--    <input type="hidden" name="products[0].unitPrice" value="1000">-->
+<!--    <input type="hidden" name="products[0].quantity" value="1">-->
+<!--    <input type="hidden" name="notifyUrl" value="http://127.0.0.1:8080/xyz">-->
+<!--    <input type="hidden" name="continueUrl" value="http://127.0.0.1:8080/xyz">-->
+<!--    <input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=565f9f4dda43c8e24ccab4472133d680e2aa58e1f58bea845c4cf2926965144d">-->
+
+<!--    <button type="submit" formtarget="_blank">Płacę z PayU</button>-->
+<!--</form>-->
+
+<script>
+    // window.onload = function(){
+    //     alert('[[${message}]]');
+    // }
+    // alert('[[${message}]]');
+    const MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    function menuToggle(){
+        if(MenuItems.style.maxHeight == "0px"){
+            MenuItems.style.maxHeight = "200px";
+        } else{
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+</script>
+
+</body>
+</html>

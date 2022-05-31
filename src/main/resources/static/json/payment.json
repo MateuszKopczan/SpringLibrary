@@ -1,0 +1,48 @@
+{
+  "orders": [
+    {
+      "orderId": "21PG4JZBL1220331GUEST000P01",
+      "orderCreateDate": "2022-03-31T15:40:02.025+02:00",
+      "notifyUrl": "http://127.0.0.1:8080/xyz",
+      "customerIp": "127.0.0.1",
+      "merchantPosId": "432667",
+      "description": "RTV market",
+      "currencyCode": "PLN",
+      "totalAmount": "21000",
+      "buyer": {
+        "customerId": "guest",
+        "email": "john.doe@example.com",
+        "phone": "654111654",
+        "firstName": "John",
+        "lastName": "Doe",
+        "language": "pl"
+      },
+      "payMethod": {
+        "type": "CARD_TOKEN"
+      },
+      "status": "COMPLETED",
+      "products": [
+        {
+          "name": "Wireless Mouse for Laptop",
+          "unitPrice": "15000",
+          "quantity": "1"
+        },
+        {
+          "name": "HDMI cable",
+          "unitPrice": "6000",
+          "quantity": "1"
+        }
+      ]
+    }
+  ],
+  "status": {
+    "statusCode": "SUCCESS",
+    "statusDesc": "Request processing successful"
+  },
+  "properties": [
+    {
+      "name": "PAYMENT_ID",
+      "value": "5003657759"
+    }
+  ]
+}
