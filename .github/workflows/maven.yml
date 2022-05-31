@@ -36,6 +36,10 @@ jobs:
           echo ${{secrets.SPRING_DATASOURCE_URL}} | sed 's/./& /g' 
           
       - name: Step 3 - Have GitHub Actions build Maven Project
+        env: 
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
         run: mvn -B package --file pom.xml
         
       - name: Step 4 - List the current directory
