@@ -15,11 +15,6 @@ jobs:
     steps: 
       - name: Step 1 - Checkout main branch from GitHub
         uses: actions/checkout@v3
-        
-      - name: Step 1.5 - Print application.yml?
-        run: |
-          cd src/main/resources
-          cat application.yml
       
       - name: Step 2 - Set up JDK 11
         uses: actions/setup-java@v3
@@ -28,18 +23,23 @@ jobs:
           distribution: 'temurin'
           cache: maven
           
-      - name: Step 2.5 - Echo out a GitHub Actions Secret to the logs
-        run: |
-          echo "The GitHub Action Secret will be masked:  "
-          echo ${{ secrets.SPRING_DATASOURCE_URL }}
-          echo "Trick to echo GitHub Actions Secret:  "
-          echo ${{secrets.SPRING_DATASOURCE_URL}} | sed 's/./& /g' 
-          
       - name: Step 3 - Have GitHub Actions build Maven Project
         env: 
           SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
           SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
           SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          PAYU_DESCRIPTION: ${{ secrets.PAYU_DESCRIPTION }}
+          PAYU_MERCHANTPOSID: ${{ secrets.PAYU_MERCHANTPOSID }}
+          PAYU_SECONDKEY: ${{ secrets.PAYU_SECONDKEY }}
+          PAYU_CLIENTID: ${{ secrets.PAYU_CLIENTID }}
+          PAYU_CLIENTSECRET: ${{ secrets.PAYU_CLIENTSECRET }}
+          PAYU_CONTINUEURL: ${{ secrets.CONTINUEURL }}
+          PAYU_NOTIFYURL: ${{ secrets.PAYU_NOTIFYURL }}
+          MAIL_HOST: ${{ secrets.MAIL_HOST }}
+          MAIL_PORT: ${{ secrets.MAIL_PORT }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_TRANSPORTPROTOCOL: ${{ secrets.MAIL_TRANSPORTPROTOCOL }}
         run: mvn -B package --file pom.xml
         
       - name: Step 4 - List the current directory
