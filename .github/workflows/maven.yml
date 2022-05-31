@@ -22,6 +22,27 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
+      
+      - name: Step 2.5 - TEST
+        env: 
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          PAYU_DESCRIPTION: ${{ secrets.PAYU_DESCRIPTION }}
+          PAYU_MERCHANTPOSID: ${{ secrets.PAYU_MERCHANTPOSID }}
+          PAYU_SECONDKEY: ${{ secrets.PAYU_SECONDKEY }}
+          PAYU_CLIENTID: ${{ secrets.PAYU_CLIENTID }}
+          PAYU_CLIENTSECRET: ${{ secrets.PAYU_CLIENTSECRET }}
+          PAYU_CONTINUEURL: ${{ secrets.CONTINUEURL }}
+          PAYU_NOTIFYURL: ${{ secrets.PAYU_NOTIFYURL }}
+          MAIL_HOST: ${{ secrets.MAIL_HOST }}
+          MAIL_PORT: ${{ secrets.MAIL_PORT }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_TRANSPORTPROTOCOL: ${{ secrets.MAIL_TRANSPORTPROTOCOL }}
+        run: |
+          cd src/main/resources
+          cat application.yml
           
       - name: Step 3 - Have GitHub Actions build Maven Project
         env: 
