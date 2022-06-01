@@ -5,6 +5,7 @@ import com.example.library.dto.UserDTO;
 import com.example.library.dto.UserPasswordDTO;
 import com.example.library.entity.Book;
 import com.example.library.entity.Order;
+import com.example.library.entity.Cart;
 import com.example.library.entity.OrderStatus;
 import com.example.library.entity.User;
 import com.example.library.service.MainService;
