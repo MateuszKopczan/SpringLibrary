@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService{
         user.setUserName(userDTO.getUserName());
         user.setPassword(encodedPassword);
         user.setEmail(userDTO.getEmail());
-        user.setCart(new Cart());
         user.setVerificationCode(userDTO.getVerifyCode());
         user.setRoles(List.of(roleDAO.findRoleByName("ROLE_USER")));
         userDAO.save(user);
