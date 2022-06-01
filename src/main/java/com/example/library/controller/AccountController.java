@@ -277,7 +277,11 @@ public class AccountController {
         userDTO.setVerifyCode(verifyCode);
         userService.save(userDTO);
         User user = userService.findByEmail(userDTO.getEmail());
-       
+        Cart cart = Cart.builder()
+                .user(user)
+                .books(new LinkedList<>())
+                .build();
+        cartService.save(cart);
         emailAsyncService.sendVerificationCode(verifyCode, user.getEmail());
 
         redirectAttributes.addFlashAttribute("registerConfirmation", "Success. Log in and activate your account.");
