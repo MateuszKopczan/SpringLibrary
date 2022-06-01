@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface CartService {
-    Cart findByUserId(int id);
+    Cart findByUserId(long id);
     void save(Cart cart);
-    void deleteById(int id);
+    void deleteById(long id);
     Map<Book, Integer> createProductsMap(List<Book> products);
     float getCartValue(Cart cart);
 }

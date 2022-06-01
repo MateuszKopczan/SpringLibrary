@@ -29,25 +29,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(int id) {
+    public Order findById(long id) {
         Order order = orderDAO.findById(id);
         return order;
     }
 
     @Override
-    public Order findLatestByUserId(int userId) {
+    public Order findLatestByUserId(long userId) {
         Order order = orderDAO.findLatestByUserId(userId);
         return order;
     }
 
     @Override
-    public List<Order> findByUserId(int userId) {
+    public List<Order> findByUserId(long userId) {
         List<Order> userOrders = orderDAO.findByUserId(userId);
         return userOrders;
     }
 
     @Override
-    public boolean checkUserOrder(User user, int id) {
+    public boolean checkUserOrder(User user, long id) {
         Order order = orderDAO.findById(id);
         if(order == null)
             return false;

@@ -24,10 +24,10 @@ public interface BookDAO {
     Long getResultCountAfterPriceRangeAndCategoryFilter(int pageSize, float downPrice, float upPrice, String categoryName);
     List<Book> findPageInPriceRangeAndCategorySorted(int pageNo, int pageSize, float downPrice, float upPrice, String categoryName, String sort, String sortOrder);
     Long getResultCount();
-    Book findById(int id);
+    Book findById(long id);
     Book findByTitle(String title);
     void save(Book book);
-    void deleteById(int id);
+    void deleteById(long id);
     List<Book> findLatest();
     List<Book> findFeatured();
 

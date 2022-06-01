@@ -25,7 +25,7 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
-    public Category findById(int id) {
+    public Category findById(long id) {
         Session session = entityManager.unwrap(Session.class);
         Category category = session.get(Category.class, id);
         return category;
@@ -51,7 +51,7 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         Session session = entityManager.unwrap(Session.class);
         Category category = session.get(Category.class, id);
         session.delete(category);

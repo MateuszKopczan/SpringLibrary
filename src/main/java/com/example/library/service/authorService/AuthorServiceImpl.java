@@ -23,7 +23,7 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public Author findById(int id) {
+    public Author findById(long id) {
         Optional<Author> result = Optional.ofNullable(authorDAO.findById(id));
         if(result.isPresent())
             return result.get();
@@ -42,7 +42,7 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         authorDAO.deleteById(id);
     }
 }

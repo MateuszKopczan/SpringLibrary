@@ -9,23 +9,26 @@ spring:
     properties:
       hibernate:
         ddl-auto: update
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         show_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
 payu:
   description: 
   merchant-pos-id: 
   second-key: 
   client-id: 
-  client-secret: 
   url: https://secure.snd.payu.com/api/v2_1/orders
   authorization-url: https://secure.snd.payu.com/pl/standard/user/oauth/authorize
-  continue-url: https://spring-library-1.herokuapp.com/checkout/callback
-  notify-url: https://spring-library-1.herokuapp.com/notify
+  client-secret: 
+  continue-url: 
+  notify-url: 
 
 mail:
-  host: 
-  port: 
+  host: smtp.gmail.com
+  port: 587
   username: 
   password: 
   transport-protocol: smtp

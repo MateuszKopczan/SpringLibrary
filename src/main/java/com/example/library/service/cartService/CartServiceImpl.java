@@ -18,7 +18,7 @@ public class CartServiceImpl implements CartService{
     private CartDAO cartDAO;
 
     @Override
-    public Cart findByUserId(int id) {
+    public Cart findByUserId(long id) {
         return cartDAO.findByUserId(id);
     }
 
@@ -28,7 +28,7 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         cartDAO.deleteById(id);
     }
 

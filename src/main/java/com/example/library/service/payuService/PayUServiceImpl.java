@@ -68,12 +68,11 @@ public class PayUServiceImpl implements PayUService{
                         .build())
                 .build();
         String requestBody = convertOrderRefundRequestToJSON(orderRefundRequest);
-        System.out.println(requestBody);
+
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
         String refundUrl = payUProperties.getUrl() + "/" + order.getPayUOrderId() + "/refunds";
-        System.out.println(refundUrl);
+
         ResponseEntity<String> response = restTemplate.exchange(refundUrl, HttpMethod.POST, entity, String.class);
-        System.out.println(response.getBody());
         return convertJsonToOrderRefundResponse(response.getBody());
     }
 

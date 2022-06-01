@@ -35,7 +35,7 @@ public class Cart extends BaseEntity{
         books.add(book);
     }
 
-    public void removeBookFromCart(int id){
+    public void removeBookFromCart(long id){
         for(Book book : books){
             if(book.getId() == id) {
                 books.remove(book);
@@ -43,7 +43,7 @@ public class Cart extends BaseEntity{
             }
         }
     }
-    public void removeAllBooksFromCartOfGivenId(int id){
+    public void removeAllBooksFromCartOfGivenId(long id){
         books.removeIf(e -> e.getId() == id);
     }
 }

@@ -14,13 +14,13 @@ public interface BookService {
     List<Book> findRelated(List<Category> categories);
     List<Book> findPage(int pageNo, int pageSize, String sortOption);
     Long getResultCount(boolean filtered, int pageSize, Integer downPrice, Integer upPrice, String category);
-    Book findById(int id);
+    Book findById(long id);
     Book findByTitle(String title);
 
     List<Book> findFiltered(int pageNo, int pageSize, Integer downPrice, Integer upPrice, String categoryName, String sort);
     void save(Book book);
     void save(BookDTO bookDTO);
-    void deleteById(int id);
+    void deleteById(long id);
     List<Book> findLatest();
     List<Book> findFeatured();
     void returnProductsFromCanceledOrder(List<OrderCreateRequest.Product> products);

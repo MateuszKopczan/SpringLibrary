@@ -34,14 +34,14 @@ public class OrderDAOImpl implements OrderDAO{
     }
 
     @Override
-    public Order findById(int id) {
+    public Order findById(long id) {
         Session session = entityManager.unwrap(Session.class);
         Order order = session.get(Order.class, id);
         return order;
     }
 
     @Override
-    public List<Order> findByUserId(int userId) {
+    public List<Order> findByUserId(long userId) {
         Session session = entityManager.unwrap(Session.class);
         Query<Order> query = session.createQuery("from Order where user_id=:uid", Order.class);
         query.setParameter("uid", userId);
@@ -50,7 +50,7 @@ public class OrderDAOImpl implements OrderDAO{
     }
 
     @Override
-    public Order findLatestByUserId(int userId) {
+    public Order findLatestByUserId(long userId) {
         Session session = entityManager.unwrap(Session.class);
         Query<Order> query = session.createQuery("from Order where user_id=:uid order by date desc", Order.class);
         query.setParameter("uid", userId);

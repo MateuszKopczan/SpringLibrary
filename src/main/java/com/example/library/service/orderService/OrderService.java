@@ -10,10 +10,10 @@ import java.util.List;
 public interface OrderService {
     List<Order> findAll();
     void save(Order order);
-    Order findById(int id);
-    Order findLatestByUserId(int userId);
-    List<Order> findByUserId(int userId);
-    boolean checkUserOrder(User user, int id);
+    Order findById(long id);
+    Order findLatestByUserId(long userId);
+    List<Order> findByUserId(long userId);
+    boolean checkUserOrder(User user, long id);
     Order findByPayUId(String payUId);
     Order createOrder(UserCheckoutDTO userCheckoutDTO, User user, float cartValue, List<Book> products);
 }

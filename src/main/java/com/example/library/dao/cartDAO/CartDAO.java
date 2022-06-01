@@ -6,7 +6,7 @@ import com.example.library.entity.Category;
 import java.util.List;
 
 public interface CartDAO {
-    Cart findByUserId(int id);
+    Cart findByUserId(long id);
     void save(Cart cart);
-    void deleteById(int id);
+    void deleteById(long id);
 }

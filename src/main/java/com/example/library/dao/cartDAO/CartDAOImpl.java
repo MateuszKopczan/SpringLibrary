@@ -18,7 +18,7 @@ public class CartDAOImpl implements CartDAO{
     private EntityManager entityManager;
 
     @Override
-    public Cart findByUserId(int id) {
+    public Cart findByUserId(long id) {
         Session session = entityManager.unwrap(Session.class);
         Query<Cart> query = session.createQuery("from Cart where user_id=:uid", Cart.class);
         query.setParameter("uid", id);
@@ -37,7 +37,7 @@ public class CartDAOImpl implements CartDAO{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         Session session = entityManager.unwrap(Session.class);
         Cart cart = session.get(Cart.class, id);
         session.delete(cart);

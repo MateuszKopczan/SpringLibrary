@@ -27,7 +27,6 @@ public class EmailAsyncService {
         emailService.sendOrderConfirmation(order);
     }
 
-
     @Async
     public void sendOrderWaitingForShipment(Order order){
         emailService.sendOrderWaitingForShipment(order);

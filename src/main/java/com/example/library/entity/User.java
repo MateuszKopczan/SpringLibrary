@@ -17,7 +17,7 @@ import java.util.List;
 @Builder
 @ToString(exclude = {"orders", "cart"})
 @Entity
-@Table(name="user")
+@Table(name="app_user")
 public class User extends BaseEntity{
 
     @Column(name="username")

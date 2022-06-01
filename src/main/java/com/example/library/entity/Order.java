@@ -34,7 +34,7 @@ public class Order extends BaseEntity{
     @Column(name="order_status")
     private String status;
 
-    @Column(name="order_date", columnDefinition = "DATETIME")
+    @Column(name="order_date")//, columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 

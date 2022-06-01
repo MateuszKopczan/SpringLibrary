@@ -17,7 +17,7 @@ public interface UserService extends UserDetailsService {
     void update(User sessionUser, User userData);
     boolean verifyUser(User user, String verifyCode);
     UserCheckoutDTO copyValue(User user);
-    void deleteById(int id);
+    void deleteById(long id);
     void createPasswordResetTokenForUser(User user, String token);
     String validatePasswordResetToken(String token);
     User getUserByPasswordResetToken(String token);

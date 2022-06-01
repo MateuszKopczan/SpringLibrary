@@ -195,7 +195,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public Book findById(int id) {
+    public Book findById(long id) {
         Session session = entityManager.unwrap(Session.class);
         Book book = session.get(Book.class, id);
         return book;
@@ -217,7 +217,7 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         Session session = entityManager.unwrap(Session.class);
         Book book = session.get(Book.class, id);
         session.delete(book);

@@ -26,7 +26,7 @@ public class CartController {
     @GetMapping("")
     public String showCart(Model model, Authentication authentication){
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        int id = userDetails.getUser().getId();
+        long id = userDetails.getUser().getId();
         Cart cart = cartService.findByUserId(id);
         if (cart == null){
             cart = Cart.builder().user(userDetails.getUser()).build();
@@ -44,7 +44,7 @@ public class CartController {
     @PostMapping("/add")
     public String addToCart(@ModelAttribute("Book") Book book, Authentication authentication){
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        int id = userDetails.getUser().getId();
+        long id = userDetails.getUser().getId();
         Cart cart = cartService.findByUserId(id);
         if (cart == null)
             cart = Cart.builder().user(userDetails.getUser()).build();

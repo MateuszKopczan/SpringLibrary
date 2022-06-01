@@ -58,7 +58,7 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         Session session = entityManager.unwrap(Session.class);
         User user = session.get(User.class, id);
         session.delete(user);

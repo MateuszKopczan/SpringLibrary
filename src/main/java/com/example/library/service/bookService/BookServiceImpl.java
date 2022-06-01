@@ -85,7 +85,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findById(int id) {
+    public Book findById(long id) {
         Optional<Book> result = Optional.ofNullable(bookDAO.findById(id));
         if(result.isPresent())
             return result.get();
@@ -152,7 +152,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         bookDAO.deleteById(id);
     }
 

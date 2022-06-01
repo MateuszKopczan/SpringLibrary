@@ -27,7 +27,7 @@ public class AuthorDAOImpl implements AuthorDAO{
     }
 
     @Override
-    public Author findById(int id) {
+    public Author findById(long id) {
         Session session = entityManager.unwrap(Session.class);
         Author author = session.get(Author.class, id);
         return author;
@@ -53,7 +53,7 @@ public class AuthorDAOImpl implements AuthorDAO{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         Session session = entityManager.unwrap(Session.class);
         Author author = session.get(Author.class, id);
         session.delete(author);
