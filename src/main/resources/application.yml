@@ -1,8 +1,8 @@
 spring:
-  datasource:
-    url: 
-    username: 
-    password: 
+  datasource: 
+    url: ${{ secrets.SPRING_DATASOURCE_URL }}
+    username: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+    password: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,21 +16,21 @@ spring:
             non_contextual_creation: true
 
 payu:
-  description: 
-  merchant-pos-id: 
-  second-key: 
-  client-id: 
+  description: ${{ secrets.PAYU_DESCRIPTION }}
+  merchant-pos-id: ${{ secrets.PAYU_MERCHANTPOSID }}
+  second-key: ${{ secrets.PAYU_SECONDKEY }}
+  client-id: ${{ secrets.PAYU_CLIENTID }}
+  client-secret: ${{ secrets.PAYU_CLIENTSECRET }}
   url: https://secure.snd.payu.com/api/v2_1/orders
   authorization-url: https://secure.snd.payu.com/pl/standard/user/oauth/authorize
-  client-secret: 
-  continue-url: 
-  notify-url: 
+  continue-url: ${{ secrets.PAYU_CONTINUEURL }}
+  notify-url: ${{ secrets.PAYU_NOTIFYURL }}
 
 mail:
   host: smtp.gmail.com
   port: 587
-  username: 
-  password: 
+  username: ${{ secrets.MAIL_USERNAME }}
+  password: ${{ secrets.MAIL_PASSWORD }}
   transport-protocol: smtp
   smtp-auth: true
   smtp-starttls-enable: true
