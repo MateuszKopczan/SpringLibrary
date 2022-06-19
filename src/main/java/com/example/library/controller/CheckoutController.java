@@ -82,6 +82,7 @@ public class CheckoutController{
 
         Cart emptyCart = new Cart();
         emptyCart.setUser(userDetails.getUser());
+        cartService.save(emptyCart);
         userDetails.getUser().setCart(emptyCart);
         userService.save(userDetails.getUser());
         cartService.deleteById(cart.getId());
