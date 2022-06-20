@@ -80,12 +80,8 @@ public class CheckoutController{
         for(Book book : products)
             book.setNumberForSale(book.getNumberForSale() - 1);
 
-        Cart emptyCart = new Cart();
-        emptyCart.setUser(userDetails.getUser());
-        cartService.save(emptyCart);
-        userDetails.getUser().setCart(emptyCart);
+        userDetails.getUser().getCart().getBooks().clear();
         userService.save(userDetails.getUser());
-        cartService.deleteById(cart.getId());
 
         Order order = orderService.createOrder(userCheckoutDTO, userDetails.getUser(), cartValue, products);
         emailAsyncService.sendOrderConfirmation(order);
